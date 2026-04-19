@@ -1,29 +1,38 @@
 {
-  "version": 1,
   "outbounds": [
     {
-      "type": "urltest",
-      "tag": "🇫🇮АВТО LTE | FREE",
-      "outbounds": ["all-configs"],
-      "url": "http://cp.cloudflare.com/generate_204",
-      "interval": "1m"
+      "type": "selector",
+      "tag": "proxy",
+      "outbounds": [
+        "auto-detect",
+        "FR-Server-1",
+        "FR-Server-2"
+      ]
     },
     {
-      "tag": "all-configs",
-      "type": "selector",
+      "type": "urltest",
+      "tag": "auto-detect",
       "outbounds": [
-        "vless-provider"
-      ]
-    }
-  ],
-  "outbound_providers": [
+        "FR-Server-1",
+        "FR-Server-2"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "10m",
+      "tolerance": 50
+    },
     {
-      "tag": "vless-provider",
-      "type": "http",
-      "format": "text",
-      "url": "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/BLACK_VLESS_RUS_mobile.txt",
-      "path": "configs.txt",
-      "update_interval": "1h"
+      "type": "vless",
+      "tag": "FR-Server-1",
+      "server": "адрес_из_твоего_файла",
+      "server_port": 443,
+      "uuid": "твой_uuid",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "server_name": "google.com",
+        "utls": { "enabled": true, "fingerprint": "chrome" },
+        "reality": { "enabled": true, "public_key": "ключ", "short_id": "id" }
+      }
     }
   ]
 }
