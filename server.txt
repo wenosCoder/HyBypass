@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "outbound": "🇫🇮АВТО LTE | FREE",
+      "server": "any",
+      "server_port": "any"
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "urltest",
+      "tag": "🇫🇮АВТО LTE | FREE",
+      "outbounds": [
+        "vless-in"
+      ],
+      "url": "http://cp.cloudflare.com/generate_204",
+      "interval": "1m"
+    },
+    {
+      "tag": "vless-in",
+      "type": "vless",
+      "external": "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/BLACK_VLESS_RUS_mobile.txt"
+    }
+  ],
+  "experimental": {
+    "clash_api": {
+      "external_controller": "127.0.0.1:9090",
+      "default_mode": "Rule"
+    }
+  }
+}
